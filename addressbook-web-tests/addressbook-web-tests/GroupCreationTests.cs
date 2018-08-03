@@ -49,7 +49,10 @@ namespace WebAddressbookTests
             Login(new AccountData("admin", "secret"));
             GoToGroupsPage();
             InitGroupCreation();
-            FillGroupForm(new GroupData("test1", "test2", "test3"));
+            GroupData group = new GroupData("GroupTest1");
+            group.Header = "test2";
+            group.Footer = "test3";
+            FillGroupForm(group);
             SubmitGroupCreation();
             ReturnToGroupsPage();
             Logout();
