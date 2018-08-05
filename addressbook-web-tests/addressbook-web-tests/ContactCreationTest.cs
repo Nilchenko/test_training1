@@ -45,20 +45,51 @@ namespace WebAddressbookTests
         [Test]
         public void TheUntitledTest()
         {
-            driver.Navigate().GoToUrl(baseURL + "addressbook/");
+            OpenHomePage();
+            Login();
+            AddContactPage();
+            FillContactForm();
+            SubmitAddContact();
+            Logout();
+        }
+
+        private void Logout()
+        {
+            driver.FindElement(By.LinkText("Logout")).Click();
+        }
+
+        private void SubmitAddContact()
+        {
+            driver.FindElement(By.Name("submit")).Click();
+        }
+
+        private void FillContactForm()
+        {
+            driver.FindElement(By.Name("firstname")).Clear();
+            driver.FindElement(By.Name("firstname")).SendKeys("1stName");
+            driver.FindElement(By.Name("lastname")).Clear();
+            driver.FindElement(By.Name("lastname")).SendKeys("LastName");
+        }
+
+        private void AddContactPage()
+        {
+            driver.FindElement(By.LinkText("add new")).Click();
+        }
+
+        private void Login()
+        {
             driver.FindElement(By.Name("user")).Clear();
             driver.FindElement(By.Name("user")).SendKeys("admin");
             driver.FindElement(By.Name("pass")).Clear();
             driver.FindElement(By.Name("pass")).SendKeys("secret");
             driver.FindElement(By.CssSelector("input[type=\"submit\"]")).Click();
-            driver.FindElement(By.LinkText("add new")).Click();
-            driver.FindElement(By.Name("firstname")).Clear();
-            driver.FindElement(By.Name("firstname")).SendKeys("1stName");
-            driver.FindElement(By.Name("lastname")).Clear();
-            driver.FindElement(By.Name("lastname")).SendKeys("LastName");
-            driver.FindElement(By.Name("submit")).Click();
-            driver.FindElement(By.LinkText("Logout")).Click();
         }
+
+        private void OpenHomePage()
+        {
+            driver.Navigate().GoToUrl(baseURL + "addressbook/");
+        }
+
         private bool IsElementPresent(By by)
         {
             try
