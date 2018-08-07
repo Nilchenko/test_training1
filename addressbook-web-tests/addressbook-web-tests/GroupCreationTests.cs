@@ -14,7 +14,7 @@ namespace WebAddressbookTests
         {
             OpenHomePage();
             Login(new AccountData("admin", "secret"));
-            GoToGroupsPage();
+            OpenGroupsPage();
             InitGroupCreation();
             GroupData group = new GroupData("GroupTest1");
             group.Header = "test2";

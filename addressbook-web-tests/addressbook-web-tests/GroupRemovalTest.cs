@@ -14,7 +14,7 @@ namespace WebAddressbookTests
         {
             OpenHomePage();
             Login(new AccountData ("admin", "secret"));
-            GoToGroupsPage();
+            OpenGroupsPage();
             SelectGroup(1);
             RemoveGroup();
             ReturnToGroupsPage();

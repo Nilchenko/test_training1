@@ -55,7 +55,7 @@ namespace WebAddressbookTests
             driver.FindElement(By.CssSelector("input[type=\"submit\"]")).Click();
         }
 
-        protected void GoToGroupsPage()
+        protected void OpenGroupsPage()
         {
             driver.FindElement(By.LinkText("groups")).Click();
         }
@@ -98,6 +98,24 @@ namespace WebAddressbookTests
         protected void RemoveGroup()
         {
             driver.FindElement(By.Name("delete")).Click();
+        }
+
+        protected void AddContactPage()
+        {
+            driver.FindElement(By.LinkText("add new")).Click();
+        }
+
+        protected void FillContactForm(ContactData contact)
+        {
+            driver.FindElement(By.Name("firstname")).Clear();
+            driver.FindElement(By.Name("firstname")).SendKeys(contact.FirstName);
+            driver.FindElement(By.Name("lastname")).Clear();
+            driver.FindElement(By.Name("lastname")).SendKeys(contact.LastName);
+        }
+
+        protected void SubmitAddContact()
+        {
+            driver.FindElement(By.Name("submit")).Click();
         }
 
     }
