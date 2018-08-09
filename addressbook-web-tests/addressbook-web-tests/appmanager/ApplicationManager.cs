@@ -3,24 +3,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
 
 namespace WebAddressbookTests
 {
-    public class TestBase
+    public class ApplicationManager
     {
         protected IWebDriver driver;
-        private StringBuilder verificationErrors;
         protected string baseURL;
-
         protected LoginHelper loginHelper;
         protected NavigationHelper navigationHelper;
         protected GroupHelper groupHelper;
 
-        [SetUp]
+        public ApplicationManager()
+        {
+
+            loginHelper = new LoginHelper(driver);
+            navigationHelper = new NavigationHelper(driver, baseURL);
+            groupHelper = new GroupHelper(driver);
+        }
+
         public void SetupTest()
         {
             FirefoxOptions options = new FirefoxOptions();
@@ -30,13 +34,8 @@ namespace WebAddressbookTests
             baseURL = "http://localhost";
             verificationErrors = new StringBuilder();
 
-            loginHelper = new LoginHelper(driver);
-            navigationHelper = new NavigationHelper(driver, baseURL);
-            groupHelper = new GroupHelper(driver);
         }
-
-        [TearDown]
-        public void TeardownTest()
+        public void Stop()
         {
             try
             {
@@ -46,26 +45,30 @@ namespace WebAddressbookTests
             {
                 // Ignore errors if unable to close the browser
             }
-            Assert.AreEqual("", verificationErrors.ToString());
         }
 
-        protected void AddContactPage()
+        public LoginHelper Auth
         {
-            driver.FindElement(By.LinkText("add new")).Click();
+            get
+            {
+                return loginHelper;
+            }
         }
 
-        protected void FillContactForm(ContactData contact)
+        public NavigationHelper Navigator
         {
-            driver.FindElement(By.Name("firstname")).Clear();
-            driver.FindElement(By.Name("firstname")).SendKeys(contact.FirstName);
-            driver.FindElement(By.Name("lastname")).Clear();
-            driver.FindElement(By.Name("lastname")).SendKeys(contact.LastName);
+            get
+            {
+                return Navigator;
+            }
         }
 
-        protected void SubmitAddContact()
+        public GroupHelper Groups
         {
-            driver.FindElement(By.Name("submit")).Click();
+            get
+            {
+                return Groups;
+            }
         }
-
     }
 }
