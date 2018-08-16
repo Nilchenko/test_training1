@@ -1,0 +1,1 @@
+<Playlist Version="1.0"><Add Test="WebAddressbookTests.GroupCreationTests.GroupCreationTest" /><Add Test="WebAddressbookTests.ContactCreationTests.ContactCreationTest" /></Playlist>

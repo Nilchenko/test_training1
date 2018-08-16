@@ -20,6 +20,7 @@ namespace WebAddressbookTests
             AddContactPage();
             FillContactForm(contact);
             SubmitAddContact();
+            manager.Navigator.OpenHomePage();
             return this;
         }
 
