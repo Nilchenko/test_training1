@@ -24,6 +24,7 @@ namespace WebAddressbookTests
         [Test]
         public void LoginWithInvalidCredentials()
         {
+            app.Auth.Logout();
             AccountData accountData = new AccountData("admin", "qwerty");
             app.Auth.Login(accountData);
             Assert.IsFalse(app.Auth.IsLoggedIn(accountData));
