@@ -10,6 +10,7 @@ namespace WebAddressbookTests
     [TestFixture]
     public class GroupModificationTests : AuthTestBase
     {
+        GroupData defaultData = new GroupData("defaultName");
 
         [Test]
         public void GroupModificationTest()
@@ -18,7 +19,7 @@ namespace WebAddressbookTests
             newData.Header = null;
             newData.Footer = null;
 
-            app.Groups.Modify(1, newData);
+            app.Groups.Modify(1, defaultData, newData);
         }
     }
 }

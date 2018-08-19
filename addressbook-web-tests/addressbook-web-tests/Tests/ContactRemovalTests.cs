@@ -10,10 +10,12 @@ namespace WebAddressbookTests
     [TestFixture]
     public class ContactRemovalTests : AuthTestBase
     {
+        public ContactData defaultData = new ContactData("default1stName", "default2ndName");
+
         [Test]
         public void ContactRemovalTest()
         {
-            app.Contact.Removal(1);
+            app.Contact.Removal(1, defaultData);
         }
     }
 }

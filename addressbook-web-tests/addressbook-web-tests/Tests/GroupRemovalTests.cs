@@ -9,10 +9,12 @@ namespace WebAddressbookTests
     [TestFixture]
     public class GroupRemovalTests : AuthTestBase
     {
+        GroupData defaultData = new GroupData("defaultName");
+
         [Test]
         public void GroupRemovalTest()
         {
-            app.Groups.Remove(1);
+            app.Groups.Remove(1, defaultData);
         }
     }
 }
