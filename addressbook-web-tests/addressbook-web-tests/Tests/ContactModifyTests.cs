@@ -12,12 +12,22 @@ namespace WebAddressbookTests
     {
         public ContactData defaultData = new ContactData("default1stName", "default2ndName");
 
+        public void CheckContactExistAndModify(int v, ContactData defaultData, ContactData newContactData)
+        {
+            if (!app.Contact.ContactExist())
+            {
+                app.Contact.AddContact(defaultData);
+            }
+
+            app.Contact.Modify(1, defaultData, newContactData);
+        }
+
         [Test]
         public void ContactModifyTest()
         {
             ContactData newContactData = new ContactData("New1st", "New2nd");
 
-            app.Contact.Modify(1, defaultData, newContactData);
+            CheckContactExistAndModify(1, defaultData, newContactData);
         }
     }
 }

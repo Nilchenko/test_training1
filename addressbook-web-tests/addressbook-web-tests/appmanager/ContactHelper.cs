@@ -22,48 +22,38 @@ namespace WebAddressbookTests
             AddContactPage();
             FillContactForm(contact);
             SubmitAddContact();
+
             manager.Navigator.OpenHomePage();
             return this;
         }
 
         public ContactHelper Modify(int v, ContactData defaultData, ContactData newContactData)
         {
-            if (! ContactExist())
-            {
-                manager.Contact.AddContact(defaultData);
-            }
-            else
-            {
-                manager.Navigator.OpenHomePage();
-            }
+            manager.Navigator.OpenHomePage();
 
             InitContactModify(v);
             FillContactForm(newContactData);
             SubmitContactModify();
+
             manager.Navigator.OpenHomePage();
             return this;
         }
 
         public ContactHelper Removal(int v, ContactData defaultData)
         {
-            if (! ContactExist())
-            {
-                manager.Contact.AddContact(defaultData);
-            }
-            else
-            {
-                manager.Navigator.OpenHomePage();
-            }
-            
+            manager.Navigator.OpenHomePage();
+
             SelectContact(v);
             RemoveContact();
             DriverAlert();
+
+            manager.Navigator.OpenHomePage();
             return this;
         }
 
 
 
-        private bool ContactExist()
+        public bool ContactExist()
         {
             return IsElementPresent(By.Name("selected[]"));
         }

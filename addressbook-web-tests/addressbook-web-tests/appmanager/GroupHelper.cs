@@ -31,11 +31,6 @@ namespace WebAddressbookTests
         {
             manager.Navigator.OpenGroupsPage();
 
-            //if (! GroupExist())
-            //{
-            //    Create(defaultData);
-            //}
-
             SelectGroup(v);
             InitGroupModification();
             FillGroupForm(newData);

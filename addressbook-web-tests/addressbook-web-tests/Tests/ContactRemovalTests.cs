@@ -12,10 +12,21 @@ namespace WebAddressbookTests
     {
         public ContactData defaultData = new ContactData("default1stName", "default2ndName");
 
+        public void CheckContactExistsAndRemove(int v, ContactData defaultData)
+        {
+            if (!app.Contact.ContactExist())
+            {
+                app.Contact.AddContact(defaultData);
+            }
+
+            app.Contact.Removal(1, defaultData);
+
+        }
+
         [Test]
         public void ContactRemovalTest()
         {
-            app.Contact.Removal(1, defaultData);
+            CheckContactExistsAndRemove(1, defaultData);
         }
     }
 }
