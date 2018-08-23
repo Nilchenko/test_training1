@@ -12,6 +12,17 @@ namespace WebAddressbookTests
     {
         GroupData defaultData = new GroupData("defaultName");
 
+        public void CheckGroupExistsAndModify(int v, GroupData defaultData, GroupData newData)
+        {
+            app.Navigator.OpenGroupsPage();
+            if (!app.Groups.GroupExist())
+            {
+                app.Groups.Create(defaultData);
+            }
+            app.Groups.Modify(v, defaultData, newData);
+        }
+
+
         [Test]
         public void GroupModificationTest()
         {
@@ -19,7 +30,7 @@ namespace WebAddressbookTests
             newData.Header = null;
             newData.Footer = null;
 
-            app.Groups.Modify(1, defaultData, newData);
+            CheckGroupExistsAndModify(1, defaultData, newData);
         }
     }
 }

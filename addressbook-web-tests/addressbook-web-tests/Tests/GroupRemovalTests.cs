@@ -11,10 +11,22 @@ namespace WebAddressbookTests
     {
         GroupData defaultData = new GroupData("defaultName");
 
+        //[SetUp]
+        public void CheckGroupExistsAndRemove(GroupData defaultData)
+        {
+            app.Navigator.OpenGroupsPage();
+            if (!app.Groups.GroupExist())
+            {
+                app.Groups.Create(defaultData);
+            }
+            app.Groups.Remove(1, defaultData);
+        }
+
         [Test]
         public void GroupRemovalTest()
         {
-            app.Groups.Remove(1, defaultData);
+            CheckGroupExistsAndRemove(defaultData);
+            //app.Groups.Remove(1, defaultData);
         }
     }
 }

@@ -27,17 +27,14 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public GroupHelper Modify(int v, GroupData defaultDate, GroupData newData)
+        public GroupHelper Modify(int v, GroupData defaultData, GroupData newData)
         {
             manager.Navigator.OpenGroupsPage();
 
-            if (! GroupExist())
-            {
-                InitGroupCreation();
-                FillGroupForm(defaultDate);
-                SubmitGroupCreation();
-                ReturnToGroupsPage();
-            }
+            //if (! GroupExist())
+            //{
+            //    Create(defaultData);
+            //}
 
             SelectGroup(v);
             InitGroupModification();
@@ -48,17 +45,9 @@ namespace WebAddressbookTests
         }
 
 
-        public GroupHelper Remove(int v, GroupData defaultDate)
+        public GroupHelper Remove(int v, GroupData defaultData)
         {
             manager.Navigator.OpenGroupsPage();
-
-            if (! GroupExist())
-            {
-                InitGroupCreation();
-                FillGroupForm(defaultDate);
-                SubmitGroupCreation();
-                ReturnToGroupsPage();
-            }
 
             SelectGroup(v);
             RemoveGroup();
