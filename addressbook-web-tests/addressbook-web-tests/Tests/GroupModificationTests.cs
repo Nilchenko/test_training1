@@ -30,7 +30,7 @@ namespace WebAddressbookTests
             newData.Header = null;
             newData.Footer = null;
 
-            CheckGroupExistsAndModify(1, defaultData, newData);
+            CheckGroupExistsAndModify(0, defaultData, newData);
         }
     }
 }
