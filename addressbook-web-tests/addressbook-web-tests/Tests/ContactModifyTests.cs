@@ -19,7 +19,19 @@ namespace WebAddressbookTests
                 app.Contact.AddContact(defaultData);
             }
 
-            app.Contact.Modify(1, defaultData, newContactData);
+
+            List<ContactData> oldContacts = app.Contact.GetContactList();
+
+            app.Contact.Modify(v, defaultData, newContactData);
+
+
+            List<ContactData> newContacts = app.Contact.GetContactList();
+            oldContacts[v].FirstName = newContactData.FirstName;
+            oldContacts[v].LastName = newContactData.LastName;
+            oldContacts.Sort();
+            newContacts.Sort();
+            Assert.AreEqual(oldContacts, newContacts);
+
         }
 
         [Test]
@@ -27,7 +39,17 @@ namespace WebAddressbookTests
         {
             ContactData newContactData = new ContactData("New1st", "New2nd");
 
-            CheckContactExistAndModify(1, defaultData, newContactData);
+            //List<ContactData> oldContacts = app.Contact.GetContactList();
+
+            CheckContactExistAndModify(0, defaultData, newContactData);
+
+            //List<ContactData> newContacts = app.Contact.GetContactList();
+            //oldContacts[0].FirstName = newContactData.FirstName;
+            //oldContacts[0].LastName = newContactData.LastName;
+            //oldContacts.Sort();
+            //newContacts.Sort();
+            //Assert.AreEqual(oldContacts, newContacts);
+
         }
     }
 }

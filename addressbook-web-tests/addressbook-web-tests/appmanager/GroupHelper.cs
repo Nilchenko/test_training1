@@ -115,7 +115,7 @@ namespace WebAddressbookTests
             manager.Navigator.OpenGroupsPage();
             ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("span.group"));
 
-            foreach (var element in elements)
+            foreach (IWebElement element in elements)
             {
                 groups.Add(new GroupData(element.Text));
             }
