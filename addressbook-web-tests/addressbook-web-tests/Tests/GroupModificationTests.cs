@@ -19,7 +19,17 @@ namespace WebAddressbookTests
             {
                 app.Groups.Create(defaultData);
             }
+
+            List<GroupData> oldGroups = app.Groups.GetGroupList();
+
             app.Groups.Modify(v, defaultData, newData);
+
+            List<GroupData> newGroups = app.Groups.GetGroupList();
+            oldGroups[0].Name = newData.Name;
+            oldGroups.Sort();
+            newGroups.Sort();
+            Assert.AreEqual(oldGroups, newGroups);
+
         }
 
 
@@ -30,15 +40,7 @@ namespace WebAddressbookTests
             newData.Header = null;
             newData.Footer = null;
 
-            List<GroupData> oldGroups = app.Groups.GetGroupList();
-
             CheckGroupExistsAndModify(0, defaultData, newData);
-
-            List<GroupData> newGroups = app.Groups.GetGroupList();
-            oldGroups[0].Name = newData.Name;
-            oldGroups.Sort();
-            newGroups.Sort();
-            Assert.AreEqual(oldGroups, newGroups);
         }
     }
 }

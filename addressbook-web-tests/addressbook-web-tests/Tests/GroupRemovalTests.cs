@@ -12,7 +12,6 @@ namespace WebAddressbookTests
     {
         GroupData defaultData = new GroupData("defaultName");
 
-        //[SetUp]
         public void CheckGroupExistsAndRemove(GroupData defaultData)
         {
             app.Navigator.OpenGroupsPage();
@@ -29,7 +28,6 @@ namespace WebAddressbookTests
 
             oldGroups.RemoveAt(0);
             Assert.AreEqual(oldGroups, newGroups);
-
 
         }
 

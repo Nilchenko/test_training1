@@ -43,14 +43,11 @@ namespace WebAddressbookTests
                 return 1;
             }
 
-
-            if (Object.ReferenceEquals(this.LastName, other.LastName) == true)
+            if (LastName.CompareTo(other.LastName) == 0)
             {
                 return FirstName.CompareTo(other.FirstName);
             }
             return LastName.CompareTo(other.LastName);
-
-            //return FirstName.CompareTo(other.FirstName);
         }
 
         public override int GetHashCode()

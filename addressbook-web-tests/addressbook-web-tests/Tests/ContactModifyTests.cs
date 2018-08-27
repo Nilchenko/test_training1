@@ -39,16 +39,7 @@ namespace WebAddressbookTests
         {
             ContactData newContactData = new ContactData("New1st", "New2nd");
 
-            //List<ContactData> oldContacts = app.Contact.GetContactList();
-
             CheckContactExistAndModify(0, defaultData, newContactData);
-
-            //List<ContactData> newContacts = app.Contact.GetContactList();
-            //oldContacts[0].FirstName = newContactData.FirstName;
-            //oldContacts[0].LastName = newContactData.LastName;
-            //oldContacts.Sort();
-            //newContacts.Sort();
-            //Assert.AreEqual(oldContacts, newContacts);
 
         }
     }
