@@ -19,23 +19,20 @@ namespace WebAddressbookTests
                 app.Contact.AddContact(defaultData);
             }
 
+            List<ContactData> oldContacts = app.Contact.GetContactList();
+
             app.Contact.Removal(v, defaultData);
 
+            List<ContactData> newContacts = app.Contact.GetContactList();
+
+            oldContacts.RemoveAt(0);
+            Assert.AreEqual(oldContacts, newContacts);
         }
 
         [Test]
         public void ContactRemovalTest()
         {
-            List<ContactData> oldContacts = app.Contact.GetContactList();
-
             CheckContactExistsAndRemove(0, defaultData);
-
-            List<ContactData> newContacts = app.Contact.GetContactList();
-
-
-            oldContacts.RemoveAt(0);
-            Assert.AreEqual(oldContacts, newContacts);
-
         }
     }
 }
