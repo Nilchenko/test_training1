@@ -75,30 +75,33 @@ namespace WebAddressbookTests
         public ContactHelper SubmitAddContact()
         {
             driver.FindElement(By.Name("submit")).Click();
+            contactCache = null;
             return this;
         }
 
         public ContactHelper InitContactModify(int index)
         {
-            driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + (index+1) + "]")).Click();
+            driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + (index + 1) + "]")).Click();
             return this;
         }
 
         public ContactHelper SubmitContactModify()
         {
             driver.FindElement(By.Name("update")).Click();
+            contactCache = null;
             return this;
         }
 
         public ContactHelper SelectContact(int index)
         {
-            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index+1) + "]")).Click();
+            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index + 1) + "]")).Click();
             return this;
         }
 
         public ContactHelper RemoveContact()
         {
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
+            contactCache = null;
             return this;
         }
 
@@ -108,22 +111,28 @@ namespace WebAddressbookTests
             return this;
         }
 
+        private List<ContactData> contactCache = null;
+
         public List<ContactData> GetContactList()
         {
-            List<ContactData> contacts = new List<ContactData>();
-            manager.Navigator.OpenHomePage();
-
-            ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("tr[name='entry']"));
-            //ICollection<IWebElement> elements = driver.FindElements(By.Name("entry"));
-
-            
-            foreach (IWebElement element in elements)
+            if (contactCache == null)
             {
+                contactCache = new List<ContactData>();
+
+                manager.Navigator.OpenHomePage();
+
+                ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("tr[name='entry']"));
+
+                foreach (IWebElement element in elements)
+                {
                     string firstName = element.FindElement(By.XPath("td[3]")).Text;
                     string lastName = element.FindElement(By.XPath("td[2]")).Text;
-                    contacts.Add(new ContactData(firstName, lastName));
+                    contactCache.Add(new ContactData(firstName, lastName));
+                }
+
             }
-            return contacts;
+            return new List<ContactData>(contactCache); //Возвращаем копию кэша
         }
     }
 }
+

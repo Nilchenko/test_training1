@@ -52,6 +52,7 @@ namespace WebAddressbookTests
 
         }
 
+
         public bool GroupExist()
         {
             return IsElementPresent(By.Name("selected[]"));
@@ -79,6 +80,7 @@ namespace WebAddressbookTests
             groupCache = null;
             return this;
         }
+
 
         public GroupHelper ReturnToGroupsPage()
         {
@@ -121,6 +123,7 @@ namespace WebAddressbookTests
                 groupCache = new List<GroupData>();
 
                 manager.Navigator.OpenGroupsPage();
+
                 ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("span.group"));
 
                 foreach (IWebElement element in elements)
@@ -131,5 +134,11 @@ namespace WebAddressbookTests
 
             return new List<GroupData>(groupCache); //возвращаем копию кэша
         }
+
+        public int GetGroupCount()
+        {
+            return driver.FindElements(By.CssSelector("span.group")).Count;
+        }
+
     }
 }

@@ -24,6 +24,9 @@ namespace WebAddressbookTests
 
             app.Groups.Remove(0, defaultData);
 
+            //Проверка на сравнение количества элементов
+            Assert.AreEqual(oldGroups.Count - 1, app.Groups.GetGroupCount());
+
             List<GroupData> newGroups = app.Groups.GetGroupList();
 
             oldGroups.RemoveAt(0);
