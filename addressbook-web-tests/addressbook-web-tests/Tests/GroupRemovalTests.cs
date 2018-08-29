@@ -12,7 +12,8 @@ namespace WebAddressbookTests
     {
         GroupData defaultData = new GroupData("defaultName");
 
-        public void CheckGroupExistsAndRemove(GroupData defaultData)
+        [Test]
+        public void GroupRemovalTest()
         {
             app.Navigator.OpenGroupsPage();
             if (!app.Groups.GroupExist())
@@ -29,15 +30,17 @@ namespace WebAddressbookTests
 
             List<GroupData> newGroups = app.Groups.GetGroupList();
 
+            GroupData toBeRemoved = oldGroups[0];
+
             oldGroups.RemoveAt(0);
             Assert.AreEqual(oldGroups, newGroups);
 
-        }
+            foreach ( GroupData group in newGroups)
+            {
+                //проверка на то, что ид удаленного элемента не совпадает со всеми остальными
+                Assert.AreNotEqual(group.Id, toBeRemoved.Id); 
+            }
 
-        [Test]
-        public void GroupRemovalTest()
-        {
-            CheckGroupExistsAndRemove(defaultData);
         }
     }
 }

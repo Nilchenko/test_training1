@@ -73,6 +73,5 @@ namespace WebAddressbookTests
             newGroups.Sort();
             Assert.AreEqual(oldGroups, newGroups);
         }
-
     }
 }

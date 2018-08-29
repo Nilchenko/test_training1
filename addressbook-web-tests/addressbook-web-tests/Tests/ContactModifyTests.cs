@@ -12,34 +12,28 @@ namespace WebAddressbookTests
     {
         public ContactData defaultData = new ContactData("default1stName", "default2ndName");
 
-        public void CheckContactExistAndModify(int v, ContactData defaultData, ContactData newContactData)
+
+        [Test]
+        public void ContactModifyTest()
         {
             if (!app.Contact.ContactExist())
             {
                 app.Contact.AddContact(defaultData);
             }
 
+            ContactData newContactData = new ContactData("New1st", "New2nd");
 
             List<ContactData> oldContacts = app.Contact.GetContactList();
 
-            app.Contact.Modify(v, defaultData, newContactData);
+            app.Contact.Modify(0, defaultData, newContactData);
 
 
             List<ContactData> newContacts = app.Contact.GetContactList();
-            oldContacts[v].FirstName = newContactData.FirstName;
-            oldContacts[v].LastName = newContactData.LastName;
+            oldContacts[0].FirstName = newContactData.FirstName;
+            oldContacts[0].LastName = newContactData.LastName;
             oldContacts.Sort();
             newContacts.Sort();
             Assert.AreEqual(oldContacts, newContacts);
-
-        }
-
-        [Test]
-        public void ContactModifyTest()
-        {
-            ContactData newContactData = new ContactData("New1st", "New2nd");
-
-            CheckContactExistAndModify(0, defaultData, newContactData);
 
         }
     }

@@ -12,17 +12,24 @@ namespace WebAddressbookTests
     {
         GroupData defaultData = new GroupData("defaultName");
 
-        public void CheckGroupExistsAndModify(int v, GroupData defaultData, GroupData newData)
+        [Test]
+        public void GroupModificationTest()
         {
+            GroupData newData = new GroupData("ModifyGroupTest1");
+            newData.Header = null;
+            newData.Footer = null;
+
             app.Navigator.OpenGroupsPage();
+
             if (!app.Groups.GroupExist())
             {
                 app.Groups.Create(defaultData);
             }
 
             List<GroupData> oldGroups = app.Groups.GetGroupList();
+            GroupData oldData = oldGroups[0]; //копирование 0-го элемента
 
-            app.Groups.Modify(v, defaultData, newData);
+            app.Groups.Modify(0, defaultData, newData);
 
             //Проверка на сравнение количества элементов
             Assert.AreEqual(oldGroups.Count, app.Groups.GetGroupCount());
@@ -33,17 +40,13 @@ namespace WebAddressbookTests
             newGroups.Sort();
             Assert.AreEqual(oldGroups, newGroups);
 
-        }
-
-
-        [Test]
-        public void GroupModificationTest()
-        {
-            GroupData newData = new GroupData("ModifyGroupTest1");
-            newData.Header = null;
-            newData.Footer = null;
-
-            CheckGroupExistsAndModify(0, defaultData, newData);
+            foreach (GroupData group in newGroups)
+            {
+                if (group.Id == oldData.Id)
+                {
+                    Assert.AreEqual(newData.Name, group.Name);
+                }
+            }
         }
     }
 }

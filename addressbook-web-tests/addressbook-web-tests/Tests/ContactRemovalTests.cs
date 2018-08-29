@@ -12,7 +12,10 @@ namespace WebAddressbookTests
     {
         public ContactData defaultData = new ContactData("default1stName", "default2ndName");
 
-        public void CheckContactExistsAndRemove(int v, ContactData defaultData)
+
+
+        [Test]
+        public void ContactRemovalTest()
         {
             if (!app.Contact.ContactExist())
             {
@@ -21,18 +24,12 @@ namespace WebAddressbookTests
 
             List<ContactData> oldContacts = app.Contact.GetContactList();
 
-            app.Contact.Removal(v, defaultData);
+            app.Contact.Removal(0, defaultData);
 
             List<ContactData> newContacts = app.Contact.GetContactList();
 
             oldContacts.RemoveAt(0);
             Assert.AreEqual(oldContacts, newContacts);
-        }
-
-        [Test]
-        public void ContactRemovalTest()
-        {
-            CheckContactExistsAndRemove(0, defaultData);
         }
     }
 }
