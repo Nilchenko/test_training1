@@ -49,10 +49,14 @@ namespace WebAddressbookTests
         public bool IsLoggedIn(AccountData account)
         {
             return IsLoggedIn()
-                && driver.FindElement(By.Name("logout")).FindElement(By.TagName("b")).Text 
-                    == "(" + account.Username + ")";
+                && GetLoggetUserName() == account.Username;
         }
 
+        private string GetLoggetUserName()
+        {
+            string text =  driver.FindElement(By.Name("logout")).FindElement(By.TagName("b")).Text;
+            return text.Substring(1, text.Length - 2); //возвращаем символы, начиная с символа с индексом 1
 
+        }
     }
 }
