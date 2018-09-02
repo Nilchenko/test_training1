@@ -81,7 +81,10 @@ namespace WebAddressbookTests
 
         public ContactHelper InitContactModify(int index)
         {
-            driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + (index + 1) + "]")).Click();
+            //driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + (index + 1) + "]")).Click();
+            driver.FindElements(By.Name("entry"))[index].
+                FindElements(By.TagName("td"))[7].
+                FindElement(By.TagName("a")).Click();
             return this;
         }
 
@@ -132,6 +135,42 @@ namespace WebAddressbookTests
 
             }
             return new List<ContactData>(contactCache); //Возвращаем копию кэша
+        }
+
+
+        public ContactData GetContactInformationFromTable(int index)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ContactData GetContactInformationFromEditForm(int index)
+        {
+            manager.Navigator.OpenHomePage();
+            InitContactModify(index);
+
+            string firstName = driver.FindElement(By.Name("firstname")).GetAttribute("value");
+            string lastName = driver.FindElement(By.Name("lastname")).GetAttribute("value");
+            string address = driver.FindElement(By.Name("address")).GetAttribute("value");
+
+            string homePhone = driver.FindElement(By.Name("home")).GetAttribute("value");
+            string mobilePhone = driver.FindElement(By.Name("mobile")).GetAttribute("value");
+            string workPhone = driver.FindElement(By.Name("work")).GetAttribute("value");
+
+            string eMail = driver.FindElement(By.Name("email")).GetAttribute("value");
+            string eMail2 = driver.FindElement(By.Name("email2")).GetAttribute("value");
+            string eMail3 = driver.FindElement(By.Name("email3")).GetAttribute("value");
+
+            return new ContactData(firstName, lastName)
+            {
+                Address = address,
+                HomePhone = homePhone,
+                MobilePhone = mobilePhone,
+                WorkPhone = workPhone,
+                EMail = eMail,
+                EMail2 = eMail2,
+                EMail3 = eMail3
+            };
+
         }
     }
 }

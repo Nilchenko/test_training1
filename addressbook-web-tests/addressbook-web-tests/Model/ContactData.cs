@@ -8,15 +8,24 @@ namespace WebAddressbookTests
 {
     public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
-        private string firstname;
-        private string lastname;
 
         public ContactData (string firstname, string lastname)
         {
-            this.firstname = firstname;
-            this.lastname = lastname;
+            FirstName = firstname;
+            LastName = lastname;
         }
 
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Address { get; set; }
+
+        public string HomePhone { get; set; }
+        public string MobilePhone { get; set; }
+        public string WorkPhone { get; set; }
+
+        public string EMail { get; set; }
+        public string EMail2 { get; set; }
+        public string EMail3 { get; set; }
 
         public bool Equals(ContactData other)
         {
@@ -55,28 +64,5 @@ namespace WebAddressbookTests
             return FirstName.GetHashCode() & LastName.GetHashCode();
         }
 
-        public string FirstName
-        {
-            get
-            {
-                return firstname;
-            }
-            set
-            {
-                firstname = value;
-            }
-        }
-
-        public string LastName
-        {
-            get
-            {
-                return lastname;
-            }
-            set
-            {
-                lastname = value;
-            }
-        }
     }
 }
