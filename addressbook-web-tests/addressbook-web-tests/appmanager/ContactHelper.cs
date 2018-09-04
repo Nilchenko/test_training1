@@ -53,7 +53,6 @@ namespace WebAddressbookTests
         }
 
 
-
         public bool ContactExist()
         {
             return IsElementPresent(By.Name("selected[]"));
@@ -96,6 +95,15 @@ namespace WebAddressbookTests
             contactCache = null;
             return this;
         }
+
+        public ContactHelper OpenContactDetails(int index)
+        {
+            driver.FindElements(By.Name("entry"))[index].
+                FindElements(By.TagName("td"))[6].
+                FindElement(By.TagName("a")).Click();
+            return this;
+        }
+
 
         public ContactHelper SelectContact(int index)
         {
@@ -165,10 +173,15 @@ namespace WebAddressbookTests
         {
             manager.Navigator.OpenHomePage();
             InitContactModify(index);
-
+            
             string firstName = driver.FindElement(By.Name("firstname")).GetAttribute("value");
+            string middleName = driver.FindElement(By.Name("middlename")).GetAttribute("value");
             string lastName = driver.FindElement(By.Name("lastname")).GetAttribute("value");
+            string nickname = driver.FindElement(By.Name("nickname")).GetAttribute("value");
+            string company = driver.FindElement(By.Name("company")).GetAttribute("value");
+            string title = driver.FindElement(By.Name("title")).GetAttribute("value");
             string address = driver.FindElement(By.Name("address")).GetAttribute("value");
+
 
             string homePhone = driver.FindElement(By.Name("home")).GetAttribute("value");
             string mobilePhone = driver.FindElement(By.Name("mobile")).GetAttribute("value");
@@ -180,6 +193,10 @@ namespace WebAddressbookTests
 
             return new ContactData(firstName, lastName)
             {
+                MiddleName = middleName,
+                Nickname = nickname,
+                Company = company,
+                Title = title,
                 Address = address,
                 HomePhone = homePhone,
                 MobilePhone = mobilePhone,
@@ -191,12 +208,29 @@ namespace WebAddressbookTests
 
         }
 
+        // Выводит всю информацию из деталей в одну переменную
+        public ContactData GetContactInformationFromDetails(int index)
+        {
+            manager.Navigator.OpenHomePage();
+            OpenContactDetails(index);
+
+            string text = driver.FindElement(By.Id("content")).Text;
+
+            return new ContactData(null, null)
+            {
+                AllDetails = text
+            };
+
+
+        }
+
+
         public int GetNumberOfSearchResults()
         {
             manager.Navigator.OpenHomePage();
 
             string text = driver.FindElement(By.TagName("label")).Text;
-            Match m = new Regex(@"\d+").Match(text); // "\d+" - найти фрагмент, состоящий из нескольких символов подряд
+            Match m = new Regex(@"\d+").Match(text); 
             return Int32.Parse(m.Value); // преобразование в число
         }
     }

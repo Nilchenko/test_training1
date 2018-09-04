@@ -18,8 +18,13 @@ namespace WebAddressbookTests
             LastName = lastname;
         }
 
+        public string AllDetails { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public string MiddleName { get; set; }
+        public string Nickname { get; set; }
+        public string Company { get; set; }
+        public string Title { get; set; }
         public string Address { get; set; }
 
         public string HomePhone { get; set; }

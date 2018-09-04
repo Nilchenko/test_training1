@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
 
+
 namespace WebAddressbookTests
 {
     [TestFixture]
@@ -22,5 +23,16 @@ namespace WebAddressbookTests
             Assert.AreEqual(fromTable.AllPhones, fromForm.AllPhones);
             Assert.AreEqual(fromTable.AllEMails, fromForm.AllEMails);
         }
+
+        [Test]
+        public void TestDetailsContactInformation()
+        {
+            // Пока тест просто выводит в консоль детали
+            ContactData fromForm = app.Contact.GetContactInformationFromEditForm(0);
+            ContactData fromDetails = app.Contact.GetContactInformationFromDetails(0);
+
+            Console.WriteLine(fromDetails.AllDetails);
+        }
+
     }
 }
