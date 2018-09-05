@@ -22,6 +22,17 @@ namespace WebAddressbookTests
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string MiddleName { get; set; }
+        public string AllNames
+        {
+            get
+            {
+                return Regex.Replace((FirstName + " " + MiddleName + " " + LastName), " +", " ").Trim();
+            }
+            set
+            {
+            }
+        }
+
         public string Nickname { get; set; }
         public string Company { get; set; }
         public string Title { get; set; }
@@ -63,7 +74,7 @@ namespace WebAddressbookTests
                 }
                 else
                 {
-                    return CleanUp(EMail) + CleanUp(EMail2) + CleanUp(EMail3).Trim();
+                    return NewLine(EMail) + NewLine(EMail2) + NewLine(EMail3).Trim();
                 }
             }
             set
@@ -79,14 +90,12 @@ namespace WebAddressbookTests
                 if (allDetails != null)
                 {
                     return Regex.Replace(allDetails, "(\r\n)+", "\r\n");
-                    //return allDetails;
                 }
                 else
                 {
-                    return CleanUpSpace(FirstName) + CleanUpSpace(MiddleName) + CleanUp(LastName) +
-                        CleanUp(Nickname) + CleanUp(Title) + CleanUp(Company) + CleanUp(Address) + 
-                        "H: " + CleanUp(HomePhone) + "M: " + CleanUp(MobilePhone) + "W: " + CleanUp(WorkPhone) + 
-                        CleanUp(EMail) + CleanUp(EMail2) + CleanUp(EMail3).Trim();
+                    return NewLine(AllNames) + NewLine(Nickname) + NewLine(Title) + NewLine(Company) + NewLine(Address) + 
+                        "H: " + NewLine(HomePhone) + "M: " + NewLine(MobilePhone) + "W: " + NewLine(WorkPhone) + 
+                        NewLine(EMail) + NewLine(EMail2) + NewLine(EMail3).Trim();
                 }
             }
             set
@@ -106,7 +115,7 @@ namespace WebAddressbookTests
             return Regex.Replace(phone, "[- ()]", "") + "\r\n"; // (где, что, на что)
         }
 
-        private string CleanUp(string text)
+        private string NewLine(string text)
         {
             if (text == null || text == "")
             {
@@ -115,18 +124,6 @@ namespace WebAddressbookTests
            
             return text + "\r\n"; 
         }
-
-        private string CleanUpSpace(string text)
-        {
-            if (text == null || text == "")
-            {
-                return "";
-            }
-
-            return text + " ";
-        }
-
-
 
         public bool Equals(ContactData other)
         {

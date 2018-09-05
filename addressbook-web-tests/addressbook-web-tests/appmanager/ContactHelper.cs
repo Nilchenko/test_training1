@@ -220,8 +220,6 @@ namespace WebAddressbookTests
             {
                 AllDetails = text
             };
-
-
         }
 
 
