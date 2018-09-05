@@ -27,11 +27,13 @@ namespace WebAddressbookTests
         [Test]
         public void TestDetailsContactInformation()
         {
-            // Пока тест просто выводит в консоль детали
             ContactData fromForm = app.Contact.GetContactInformationFromEditForm(0);
             ContactData fromDetails = app.Contact.GetContactInformationFromDetails(0);
 
-            Console.WriteLine(fromDetails.AllDetails);
+            Console.WriteLine("Страница детальной информации:\r\n" + fromDetails.AllDetails);
+            Console.WriteLine("\r\nСтраница редактирования информации:\r\n" + fromForm.AllDetails);
+            Assert.AreEqual(fromForm.AllDetails, fromDetails.AllDetails);
+
         }
 
     }

@@ -11,6 +11,7 @@ namespace WebAddressbookTests
     {
         private string allPhones;
         private string allEMails;
+        public string allDetails;
 
         public ContactData (string firstname, string lastname)
         {
@@ -18,7 +19,6 @@ namespace WebAddressbookTests
             LastName = lastname;
         }
 
-        public string AllDetails { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string MiddleName { get; set; }
@@ -63,7 +63,7 @@ namespace WebAddressbookTests
                 }
                 else
                 {
-                    return CleanUpEMail(EMail) + CleanUpEMail(EMail2) + CleanUpEMail(EMail3).Trim();
+                    return CleanUp(EMail) + CleanUp(EMail2) + CleanUp(EMail3).Trim();
                 }
             }
             set
@@ -71,6 +71,30 @@ namespace WebAddressbookTests
                 allEMails = value;
             }
         }
+
+        public string AllDetails
+        {
+            get
+            {
+                if (allDetails != null)
+                {
+                    return Regex.Replace(allDetails, "(\r\n)+", "\r\n");
+                    //return allDetails;
+                }
+                else
+                {
+                    return CleanUpSpace(FirstName) + CleanUpSpace(MiddleName) + CleanUp(LastName) +
+                        CleanUp(Nickname) + CleanUp(Title) + CleanUp(Company) + CleanUp(Address) + 
+                        "H: " + CleanUp(HomePhone) + "M: " + CleanUp(MobilePhone) + "W: " + CleanUp(WorkPhone) + 
+                        CleanUp(EMail) + CleanUp(EMail2) + CleanUp(EMail3).Trim();
+                }
+            }
+            set
+            {
+                allDetails = value;
+            }
+        }
+
 
         private string CleanUpPhone(string phone)
         {
@@ -82,15 +106,26 @@ namespace WebAddressbookTests
             return Regex.Replace(phone, "[- ()]", "") + "\r\n"; // (где, что, на что)
         }
 
-        private string CleanUpEMail(string eMail)
+        private string CleanUp(string text)
         {
-            if (eMail == null || eMail == "")
+            if (text == null || text == "")
             {
                 return "";
             }
            
-            return eMail + "\r\n"; 
+            return text + "\r\n"; 
         }
+
+        private string CleanUpSpace(string text)
+        {
+            if (text == null || text == "")
+            {
+                return "";
+            }
+
+            return text + " ";
+        }
+
 
 
         public bool Equals(ContactData other)
