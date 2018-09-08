@@ -93,9 +93,11 @@ namespace WebAddressbookTests
                 }
                 else
                 {
-                    return NewLine(AllNames) + NewLine(Nickname) + NewLine(Title) + NewLine(Company) + NewLine(Address) + 
-                        "H: " + NewLine(HomePhone) + "M: " + NewLine(MobilePhone) + "W: " + NewLine(WorkPhone) + 
-                        NewLine(EMail) + NewLine(EMail2) + NewLine(EMail3).Trim();
+                    //return NewLine(AllNames) + NewLine(Nickname) + NewLine(Title) + NewLine(Company) + NewLine(Address) + 
+                    //    PhoneString("H", HomePhone) + PhoneString("M", MobilePhone) + PhoneString("W", WorkPhone) + 
+                    //    NewLine(EMail) + NewLine(EMail2) + NewLine(EMail3).Trim();
+                    return $"{ NewLine(AllNames)}{ NewLine(Nickname)}{ NewLine(Title)}{ NewLine(Company)}{ NewLine(Address)}{ PhoneString("H", HomePhone)}{ PhoneString("M", MobilePhone)}{ PhoneString("W", WorkPhone)}{ NewLine(EMail)}{ NewLine(EMail2)}{ NewLine(EMail3)}".Trim();
+
                 }
             }
             set
@@ -104,6 +106,10 @@ namespace WebAddressbookTests
             }
         }
 
+        private string PhoneString (string prefix, string phone)
+        {
+            return (string.IsNullOrEmpty(phone)) ? "" : $"{prefix}: {phone}\r\n";
+        }
 
         private string CleanUpPhone(string phone)
         {
