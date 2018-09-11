@@ -28,10 +28,9 @@ namespace WebAddressbookTests
             StringBuilder builder = new StringBuilder();
             for (int i = 0; i < l; i++)
             {
-                builder.Append(Convert.ToChar(32 + Convert.ToInt32(rnd.NextDouble() * 223))); //коды символов
+                builder.Append(Convert.ToChar(32 + Convert.ToInt32(rnd.NextDouble() * 65))); //коды символов
             }
             return builder.ToString();
         }
-
     }
 }

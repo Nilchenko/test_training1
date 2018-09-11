@@ -93,9 +93,6 @@ namespace WebAddressbookTests
                 }
                 else
                 {
-                    //return NewLine(AllNames) + NewLine(Nickname) + NewLine(Title) + NewLine(Company) + NewLine(Address) + 
-                    //    PhoneString("H", HomePhone) + PhoneString("M", MobilePhone) + PhoneString("W", WorkPhone) + 
-                    //    NewLine(EMail) + NewLine(EMail2) + NewLine(EMail3).Trim();
                     return $"{ NewLine(AllNames)}{ NewLine(Nickname)}{ NewLine(Title)}{ NewLine(Company)}{ NewLine(Address)}{ PhoneString("H", HomePhone)}{ PhoneString("M", MobilePhone)}{ PhoneString("W", WorkPhone)}{ NewLine(EMail)}{ NewLine(EMail2)}{ NewLine(EMail3)}".Trim();
 
                 }
@@ -146,7 +143,6 @@ namespace WebAddressbookTests
 
         public override string ToString()
         {
-            //return "name = " + FirstName + ", surname = " + LastName;
             return $"name = {FirstName}\nmiddlename = {MiddleName}\nsurname = {LastName}\nhomephome = {HomePhone}\nEMail = {EMail}";
         }
 
