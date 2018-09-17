@@ -19,9 +19,9 @@ namespace addressbook_test_data_generators
             int count = Convert.ToInt32(args[0]);
             string fileName = args[1];
             string format = args[2];
+            string dataType = args[3];
 
             List<GroupData> groups = new List<GroupData>();
-
 
             for (int i = 0; i < count; i++)
             {
@@ -88,6 +88,7 @@ namespace addressbook_test_data_generators
 
             wb.Close();
             app.Visible = false;
+            app.Quit();
         }
 
         static void WriteGroupsToCsvFile(List<GroupData> groups, StreamWriter writer)
