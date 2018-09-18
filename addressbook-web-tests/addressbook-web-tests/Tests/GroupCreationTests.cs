@@ -82,7 +82,7 @@ namespace WebAddressbookTests
 
 
 
-        [Test, TestCaseSource("GroupDataFromXlsxFile")]
+        [Test, TestCaseSource("GroupDataFromJsonFile")]
         public void GroupCreationTest(GroupData group)
         {
             //GroupData group = new GroupData("GroupTest1");

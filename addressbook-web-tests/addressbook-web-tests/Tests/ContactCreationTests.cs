@@ -3,6 +3,10 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Collections.Generic;
+using System.Xml;
+using System.Xml.Serialization;
+using System.IO;
+using Newtonsoft.Json;
 using NUnit.Framework;
 
 
@@ -14,7 +18,7 @@ namespace WebAddressbookTests
         public static IEnumerable<ContactData> RandomContactDataProvider()
         {
             List<ContactData> contacts = new List<ContactData>();
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < 1; i++)
             {
                 contacts.Add(new ContactData(GenerateRandomString(10), GenerateRandomString(10))
                 {
@@ -26,11 +30,27 @@ namespace WebAddressbookTests
             return contacts;
         }
 
-       [Test]
-        public void ContactCreationTest()
+
+
+        public static IEnumerable<ContactData> ContactDataFromXmlFile()
         {
-            ContactData contact = new ContactData("1stName", "2ndNameTest");
-            contact.EMail = "qwerty@qwerty.ru";
+            return (List<ContactData>)
+                new XmlSerializer(typeof(List<ContactData>))
+                              .Deserialize(new StreamReader(@"contacts.xml"));
+        }
+
+        public static IEnumerable<ContactData> ContactDataFromJsonFile()
+        {
+            return JsonConvert.DeserializeObject<List<ContactData>>(
+                File.ReadAllText(@"contacts.json"));
+        }
+
+
+        [Test, TestCaseSource("ContactDataFromJsonFile")]
+        public void ContactCreationTest(ContactData contact)
+        {
+            //ContactData contact = new ContactData("1stName", "2ndNameTest");
+            //contact.EMail = "qwerty@qwerty.ru";
 
             List<ContactData> oldContacts = app.Contact.GetContactList();
 
@@ -46,9 +66,6 @@ namespace WebAddressbookTests
         [Test, TestCaseSource("RandomContactDataProvider")]
         public void RandomContactCreationTest(ContactData contact)
         {
-            //ContactData contact = new ContactData("1stName", "2ndNameTest");
-            //contact.EMail = "qwerty@qwerty.ru";
-
             List<ContactData> oldContacts = app.Contact.GetContactList();
 
             app.Contact.AddContact(contact);
