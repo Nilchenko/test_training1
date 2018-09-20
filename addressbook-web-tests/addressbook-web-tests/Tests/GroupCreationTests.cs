@@ -129,17 +129,16 @@ namespace WebAddressbookTests
         [Test]
         public void TestDBConnectivity()
         {
+
             DateTime start = DateTime.Now;
-            List<GroupData> fromUi = app.Groups.GetGroupList();
-            DateTime end = DateTime.Now;
-            Console.Out.WriteLine("Через UI: " + end.Subtract(start));
-
-            start = DateTime.Now;
             List<GroupData> fromDb = GroupData.GetAll();
-            end = DateTime.Now;
-
+            DateTime end = DateTime.Now;
             Console.Out.WriteLine("Через БД: " + end.Subtract(start));
 
+            start = DateTime.Now;
+            List<GroupData> fromUi = app.Groups.GetGroupList();
+            end = DateTime.Now;
+            Console.Out.WriteLine("Через UI: " + end.Subtract(start));
 
         }
 
