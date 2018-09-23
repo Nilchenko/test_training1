@@ -28,6 +28,7 @@ namespace WebAddressbookTests
             return this;
         }
 
+
         public ContactHelper Modify(int v, ContactData defaultData, ContactData newContactData)
         {
             manager.Navigator.OpenHomePage();
@@ -49,6 +50,18 @@ namespace WebAddressbookTests
             DriverAlert();
 
             manager.Navigator.OpenHomePage();
+            return this;
+        }
+
+        public ContactHelper AddContactToGroup(ContactData contact, GroupData group)
+        {
+            manager.Navigator.OpenHomePage();
+
+            ClearGroupFilter();
+            SelectContact(contact.Id);
+            SelectGroupToAdd(group.Name);
+            CommitAddingContactToGroup();
+
             return this;
         }
 
@@ -118,6 +131,28 @@ namespace WebAddressbookTests
             return this;
         }
 
+
+        public void CommitAddingContactToGroup()
+        {
+            driver.FindElement(By.Name("add")).Click();
+
+        }
+
+        public void SelectGroupToAdd(string name)
+        {
+            new SelectElement(driver.FindElement(By.Name("to_group"))).SelectByText(name);
+        }
+
+        public void SelectContact(string contactId)
+        {
+            driver.FindElement(By.Id(contactId));
+        }
+
+        public void ClearGroupFilter()
+        {
+            new SelectElement(driver.FindElement(By.Name("group"))).SelectByText("[all]");
+        }
+
         public ContactHelper DriverAlert()
         {
             driver.SwitchTo().Alert().Accept();
@@ -169,6 +204,7 @@ namespace WebAddressbookTests
 
         }
 
+        // достает информацию из формы редактирования контакта
         public ContactData GetContactInformationFromEditForm(int index)
         {
             manager.Navigator.OpenHomePage();

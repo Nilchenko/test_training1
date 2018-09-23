@@ -97,6 +97,7 @@ namespace WebAddressbookTests
             //Проверка на сравнение количества элементов
             Assert.AreEqual(oldGroups.Count + 1, app.Groups.GetGroupCount());
 
+            //проверка, перенесеная в GroupTestBase
             //List<GroupData> newGroups = GroupData.GetAll();
             //oldGroups.Add(group);
             //oldGroups.Sort();
@@ -130,16 +131,20 @@ namespace WebAddressbookTests
         public void TestDBConnectivity()
         {
 
-            DateTime start = DateTime.Now;
-            List<GroupData> fromDb = GroupData.GetAll();
-            DateTime end = DateTime.Now;
-            Console.Out.WriteLine("Через БД: " + end.Subtract(start));
+            //DateTime start = DateTime.Now;
+            //List<GroupData> fromDb = GroupData.GetAll();
+            //DateTime end = DateTime.Now;
+            //Console.Out.WriteLine("Через БД: " + end.Subtract(start));
 
-            start = DateTime.Now;
-            List<GroupData> fromUi = app.Groups.GetGroupList();
-            end = DateTime.Now;
-            Console.Out.WriteLine("Через UI: " + end.Subtract(start));
+            //start = DateTime.Now;
+            //List<GroupData> fromUi = app.Groups.GetGroupList();
+            //end = DateTime.Now;
+            //Console.Out.WriteLine("Через UI: " + end.Subtract(start));
 
+            foreach (ContactData contact in GroupData.GetAll()[0].GetContacts())
+            {
+                Console.Out.WriteLine("Контакт:\n" + contact + "\n");
+            }
         }
 
     }
