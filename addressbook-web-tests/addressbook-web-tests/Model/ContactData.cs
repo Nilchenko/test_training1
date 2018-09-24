@@ -117,6 +117,11 @@ namespace WebAddressbookTests
             }
         }
 
+        [Column(Name = "deprecated")]
+        public string Deprecated { get; set; }
+
+
+        //методы приведения строк
         private string PhoneString (string prefix, string phone)
         {
             return (string.IsNullOrEmpty(phone)) ? "" : $"{prefix}: {phone}\r\n";
@@ -183,11 +188,9 @@ namespace WebAddressbookTests
         {
             using (AddressBookDB db = new AddressBookDB()) //устанавливается соединение и после выполения кода автоматически закрывается
             {
-                return (from c in db.Contacts select c).ToList(); //возвращает список из бд
+                return (from c in db.Contacts.Where(x => x.Deprecated == "0000-00-00 00:00:00") select c).ToList(); //возвращает список контактов, у которыйх в Deprecated указанное значение
 
             }
         }
-
-
     }
 }

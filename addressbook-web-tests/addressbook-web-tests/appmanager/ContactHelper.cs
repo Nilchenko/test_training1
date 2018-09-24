@@ -53,7 +53,7 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public ContactHelper AddContactToGroup(ContactData contact, GroupData group)
+        public void AddContactToGroup(ContactData contact, GroupData group)
         {
             manager.Navigator.OpenHomePage();
 
@@ -61,8 +61,9 @@ namespace WebAddressbookTests
             SelectContact(contact.Id);
             SelectGroupToAdd(group.Name);
             CommitAddingContactToGroup();
+            new WebDriverWait(driver, TimeSpan.FromSeconds(10))
+                .Until(d => d.FindElements(By.CssSelector("div.msgbox")).Count > 0);
 
-            return this;
         }
 
 
@@ -145,7 +146,7 @@ namespace WebAddressbookTests
 
         public void SelectContact(string contactId)
         {
-            driver.FindElement(By.Id(contactId));
+            driver.FindElement(By.Id(contactId)).Click();
         }
 
         public void ClearGroupFilter()

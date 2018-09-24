@@ -141,9 +141,9 @@ namespace WebAddressbookTests
             //end = DateTime.Now;
             //Console.Out.WriteLine("Через UI: " + end.Subtract(start));
 
-            foreach (ContactData contact in GroupData.GetAll()[0].GetContacts())
+            foreach (ContactData contact in ContactData.GetAll())
             {
-                Console.Out.WriteLine("Контакт:\n" + contact + "\n");
+                Console.Out.WriteLine(contact.Deprecated);
             }
         }
 
