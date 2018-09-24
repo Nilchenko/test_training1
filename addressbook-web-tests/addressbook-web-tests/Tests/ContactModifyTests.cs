@@ -8,7 +8,7 @@ using NUnit.Framework;
 namespace WebAddressbookTests
 {
     [TestFixture]
-    public class ContactModifyTests : AuthTestBase
+    public class ContactModifyTests : ContactTestBase
     {
         public ContactData defaultData = new ContactData("default1stName", "default2ndName");
 

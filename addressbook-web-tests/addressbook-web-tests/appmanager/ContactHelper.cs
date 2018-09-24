@@ -28,7 +28,6 @@ namespace WebAddressbookTests
             return this;
         }
 
-
         public ContactHelper Modify(int v, ContactData defaultData, ContactData newContactData)
         {
             manager.Navigator.OpenHomePage();
@@ -41,7 +40,7 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public ContactHelper Removal(int v, ContactData defaultData)
+        public ContactHelper Remove(int v)
         {
             manager.Navigator.OpenHomePage();
 
@@ -53,6 +52,19 @@ namespace WebAddressbookTests
             return this;
         }
 
+        internal ContactHelper Remove(ContactData contact)
+        {
+            manager.Navigator.OpenHomePage();
+
+            SelectContact(contact.Id);
+            RemoveContact();
+            DriverAlert();
+
+            manager.Navigator.OpenHomePage();
+            return this;
+        }
+
+
         public void AddContactToGroup(ContactData contact, GroupData group)
         {
             manager.Navigator.OpenHomePage();
@@ -63,12 +75,13 @@ namespace WebAddressbookTests
             CommitAddingContactToGroup();
             new WebDriverWait(driver, TimeSpan.FromSeconds(10))
                 .Until(d => d.FindElements(By.CssSelector("div.msgbox")).Count > 0);
-
         }
 
 
         public bool ContactExist()
         {
+            manager.Navigator.OpenHomePage();
+
             return IsElementPresent(By.Name("selected[]"));
         }
 
@@ -76,7 +89,6 @@ namespace WebAddressbookTests
         {
             driver.FindElement(By.LinkText("add new")).Click();
             return this;
-
         }
 
         public ContactHelper FillContactForm(ContactData contact)
@@ -125,6 +137,12 @@ namespace WebAddressbookTests
             return this;
         }
 
+        public void SelectContact(string contactId)
+        {
+            driver.FindElement(By.Id(contactId)).Click();
+        }
+
+
         public ContactHelper RemoveContact()
         {
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
@@ -142,11 +160,6 @@ namespace WebAddressbookTests
         public void SelectGroupToAdd(string name)
         {
             new SelectElement(driver.FindElement(By.Name("to_group"))).SelectByText(name);
-        }
-
-        public void SelectContact(string contactId)
-        {
-            driver.FindElement(By.Id(contactId)).Click();
         }
 
         public void ClearGroupFilter()

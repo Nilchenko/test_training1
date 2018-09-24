@@ -13,7 +13,7 @@ using NUnit.Framework;
 namespace WebAddressbookTests
 {
     [TestFixture]
-    public class ContactCreationTests : AuthTestBase
+    public class ContactCreationTests : ContactTestBase
     {
         public static IEnumerable<ContactData> RandomContactDataProvider()
         {
@@ -29,8 +29,6 @@ namespace WebAddressbookTests
             }
             return contacts;
         }
-
-
 
         public static IEnumerable<ContactData> ContactDataFromXmlFile()
         {
@@ -49,32 +47,13 @@ namespace WebAddressbookTests
         [Test, TestCaseSource("ContactDataFromJsonFile")]
         public void ContactCreationTest(ContactData contact)
         {
-            //ContactData contact = new ContactData("1stName", "2ndNameTest");
-            //contact.EMail = "qwerty@qwerty.ru";
-
-            List<ContactData> oldContacts = app.Contact.GetContactList();
-
             app.Contact.AddContact(contact);
-
-            List<ContactData> newContacts = app.Contact.GetContactList();
-            oldContacts.Add(contact);
-            oldContacts.Sort();
-            newContacts.Sort();
-            Assert.AreEqual(oldContacts, newContacts);
         }
 
         [Test, TestCaseSource("RandomContactDataProvider")]
         public void RandomContactCreationTest(ContactData contact)
         {
-            List<ContactData> oldContacts = app.Contact.GetContactList();
-
             app.Contact.AddContact(contact);
-
-            List<ContactData> newContacts = app.Contact.GetContactList();
-            oldContacts.Add(contact);
-            oldContacts.Sort();
-            newContacts.Sort();
-            Assert.AreEqual(oldContacts, newContacts);
         }
 
         [Test]
@@ -82,15 +61,7 @@ namespace WebAddressbookTests
         {
             ContactData contact = new ContactData("", "");
 
-            List<ContactData> oldContacts = app.Contact.GetContactList();
-
             app.Contact.AddContact(contact);
-
-            List<ContactData> newContacts = app.Contact.GetContactList();
-            oldContacts.Add(contact);
-            oldContacts.Sort();
-            newContacts.Sort();
-            Assert.AreEqual(oldContacts, newContacts);
         }
     }
 }
