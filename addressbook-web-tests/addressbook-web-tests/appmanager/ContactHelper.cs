@@ -28,7 +28,8 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public ContactHelper Modify(int v, ContactData defaultData, ContactData newContactData)
+        //для модификации объекта по индексу, полученному через UI
+        public ContactHelper Modify(int v, ContactData newContactData)
         {
             manager.Navigator.OpenHomePage();
 
@@ -40,6 +41,20 @@ namespace WebAddressbookTests
             return this;
         }
 
+        //для модификации объекта из списка, полученного из бд
+        public ContactHelper Modify(ContactData contact, ContactData newContactData)
+        {
+            manager.Navigator.OpenHomePage();
+
+            InitContactModify(contact.Id);
+            FillContactForm(newContactData);
+            SubmitContactModify();
+
+            manager.Navigator.OpenHomePage();
+            return this;
+        }
+
+        //для удаления объекта по индексу, полученному через UI
         public ContactHelper Remove(int v)
         {
             manager.Navigator.OpenHomePage();
@@ -52,6 +67,7 @@ namespace WebAddressbookTests
             return this;
         }
 
+        //для удаления объекта из списка, полученного из бд
         internal ContactHelper Remove(ContactData contact)
         {
             manager.Navigator.OpenHomePage();
@@ -106,12 +122,21 @@ namespace WebAddressbookTests
             return this;
         }
 
+        //выбор контакта через индекс объекта в UI
         public ContactHelper InitContactModify(int index)
         {
+
             //driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + index + "]")).Click();
             driver.FindElements(By.Name("entry"))[index].
                 FindElements(By.TagName("td"))[7].
                 FindElement(By.TagName("a")).Click();
+            return this;
+        }
+
+        //выбор контакта через id объекта в бд
+        public ContactHelper InitContactModify(string id)
+        {
+            driver.FindElement(By.CssSelector($"[href*='edit.php?id={id}']")).Click();
             return this;
         }
 

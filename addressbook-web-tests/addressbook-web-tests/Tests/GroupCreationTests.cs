@@ -93,7 +93,7 @@ namespace WebAddressbookTests
             //Проверка на сравнение количества элементов
             Assert.AreEqual(oldGroups.Count + 1, app.Groups.GetGroupCount());
 
-            //проверка, перенесеная в GroupTestBase
+            //проверка не нужна, т.к. есть проверка в GroupTestBase
             //List<GroupData> newGroups = GroupData.GetAll();
             //oldGroups.Add(group);
             //oldGroups.Sort();

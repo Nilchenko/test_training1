@@ -28,18 +28,33 @@ namespace WebAddressbookTests
         }
 
 
-        public GroupHelper Modify(int v, GroupData defaultData, GroupData newData)
+        //для модификации объекта по индексу, полученному через UI
+        public GroupHelper Modify(int v, GroupData newGroupData)
         {
             manager.Navigator.OpenGroupsPage();
 
             SelectGroup(v);
             InitGroupModification();
-            FillGroupForm(newData);
+            FillGroupForm(newGroupData);
             SubmitGroupModification();
             ReturnToGroupsPage();
             return this;
         }
 
+        //для модификации объекта из списка, полученного из бд
+        public GroupHelper Modify(GroupData group, GroupData newGroupData)
+        {
+            manager.Navigator.OpenGroupsPage();
+
+            SelectGroup(group.Id);
+            InitGroupModification();
+            FillGroupForm(newGroupData);
+            SubmitGroupModification();
+            ReturnToGroupsPage();
+            return this;
+        }
+
+        //для удаления объекта из списка, полученного из бд
         public GroupHelper Remove(GroupData group)
         {
             manager.Navigator.OpenGroupsPage();
@@ -50,6 +65,7 @@ namespace WebAddressbookTests
             return this;
         }
 
+        //для удаления объекта по индексу, полученному через UI
         public GroupHelper Remove(int v)
         {
             manager.Navigator.OpenGroupsPage();
@@ -96,12 +112,14 @@ namespace WebAddressbookTests
             return this;
         }
 
+        //выбор группы через индекс объекта в UI
         public GroupHelper SelectGroup(int index)
         {
             driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index+1) + "]")).Click();
             return this;
         }
 
+        //выбор группы через id объекта в бд
         public GroupHelper SelectGroup(string id)
         {
             driver.FindElement(By.XPath("(//input[@name='selected[]' and @value = '"+id+"'])")).Click();
