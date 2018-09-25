@@ -20,6 +20,7 @@ namespace WebAddressbookTests
         {
             manager.Navigator.OpenHomePage();
 
+            ClearGroupFilter();
             AddContactPage();
             FillContactForm(contact);
             SubmitAddContact();
@@ -33,6 +34,7 @@ namespace WebAddressbookTests
         {
             manager.Navigator.OpenHomePage();
 
+            ClearGroupFilter();
             InitContactModify(v);
             FillContactForm(newContactData);
             SubmitContactModify();
@@ -46,6 +48,7 @@ namespace WebAddressbookTests
         {
             manager.Navigator.OpenHomePage();
 
+            ClearGroupFilter();
             InitContactModify(contact.Id);
             FillContactForm(newContactData);
             SubmitContactModify();
@@ -59,6 +62,7 @@ namespace WebAddressbookTests
         {
             manager.Navigator.OpenHomePage();
 
+            ClearGroupFilter();
             SelectContact(v);
             RemoveContact();
             DriverAlert();
@@ -72,6 +76,7 @@ namespace WebAddressbookTests
         {
             manager.Navigator.OpenHomePage();
 
+            ClearGroupFilter();
             SelectContact(contact.Id);
             RemoveContact();
             DriverAlert();
@@ -91,6 +96,19 @@ namespace WebAddressbookTests
             CommitAddingContactToGroup();
             new WebDriverWait(driver, TimeSpan.FromSeconds(10))
                 .Until(d => d.FindElements(By.CssSelector("div.msgbox")).Count > 0);
+        }
+
+        public void RemoveContactFromGroup(ContactData contact, GroupData group)
+        {
+            manager.Navigator.OpenHomePage();
+
+            SelectGroupFilter(group.Name);
+            SelectContact(contact.Id);
+            CommitRemoveContactFromGroup();
+            new WebDriverWait(driver, TimeSpan.FromSeconds(10))
+                .Until(d => d.FindElements(By.CssSelector("div.msgbox")).Count > 0);
+
+
         }
 
 
@@ -155,13 +173,14 @@ namespace WebAddressbookTests
             return this;
         }
 
-
+        //выбор по индексу в UI
         public ContactHelper SelectContact(int index)
         {
             driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index + 1) + "]")).Click();
             return this;
         }
 
+        //выбор по id из БД
         public void SelectContact(string contactId)
         {
             driver.FindElement(By.Id(contactId)).Click();
@@ -182,10 +201,22 @@ namespace WebAddressbookTests
 
         }
 
+        private void CommitRemoveContactFromGroup()
+        {
+            driver.FindElement(By.Name("remove")).Click();
+        }
+
+
         public void SelectGroupToAdd(string name)
         {
             new SelectElement(driver.FindElement(By.Name("to_group"))).SelectByText(name);
         }
+
+        public void SelectGroupFilter(string name)
+        {
+            new SelectElement(driver.FindElement(By.Name("group"))).SelectByText(name);
+        }
+
 
         public void ClearGroupFilter()
         {
