@@ -123,10 +123,14 @@ namespace WebAddressbookTests
 
             GroupData group = GroupData.GetAll()[0];
             List<ContactData> oldList = group.GetContacts();
-            List<ContactData> contacts = ContactData.GetAll().Except(oldList).ToList();
-            ContactData contact = ContactData.GetAll().Except(oldList).First();
+            List<ContactData> contacts = ContactData.GetAll();
+            //ContactData contact = ContactData.GetAll().Except(oldList).First();
 
-            Console.Out.WriteLine(contact.LastName + " " + contact.FirstName);
+            foreach(ContactData contact in contacts)
+            {
+                Console.Out.WriteLine(contact);
+
+            }
 
             //foreach (ContactData contact in contacts)
             //{

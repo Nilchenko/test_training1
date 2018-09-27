@@ -162,7 +162,7 @@ namespace WebAddressbookTests
 
         public override string ToString()
         {
-            return $"name = {FirstName}\nmiddlename = {MiddleName}\nsurname = {LastName}";
+            return $"name = {FirstName}\nmiddlename = {MiddleName}\nsurname = {LastName}\nid = {Id}";
         }
 
         public int CompareTo(ContactData other)
