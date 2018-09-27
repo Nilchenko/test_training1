@@ -47,13 +47,30 @@ namespace WebAddressbookTests
         [Test, TestCaseSource("ContactDataFromJsonFile")]
         public void ContactCreationTest(ContactData contact)
         {
+            List<ContactData> oldContacts = ContactData.GetAll();
+
             app.Contact.AddContact(contact);
+
+            List<ContactData> newContacts = ContactData.GetAll();
+            oldContacts.Add(contact);
+            oldContacts.Sort();
+            newContacts.Sort();
+            Assert.AreEqual(oldContacts, newContacts);
+
         }
 
         [Test, TestCaseSource("RandomContactDataProvider")]
         public void RandomContactCreationTest(ContactData contact)
         {
+            List<ContactData> oldContacts = ContactData.GetAll();
+
             app.Contact.AddContact(contact);
+
+            List<ContactData> newContacts = ContactData.GetAll();
+            oldContacts.Add(contact);
+            oldContacts.Sort();
+            newContacts.Sort();
+            Assert.AreEqual(oldContacts, newContacts);
         }
 
         [Test]
@@ -61,7 +78,15 @@ namespace WebAddressbookTests
         {
             ContactData contact = new ContactData("", "");
 
+            List<ContactData> oldContacts = ContactData.GetAll();
+
             app.Contact.AddContact(contact);
+
+            List<ContactData> newContacts = ContactData.GetAll();
+            oldContacts.Add(contact);
+            oldContacts.Sort();
+            newContacts.Sort();
+            Assert.AreEqual(oldContacts, newContacts);
         }
     }
 }
