@@ -123,19 +123,28 @@ namespace WebAddressbookTests
 
             GroupData group = GroupData.GetAll()[0];
             List<ContactData> oldList = group.GetContacts();
-            List<ContactData> contacts = ContactData.GetAll();
+            //List<ContactData> contacts = ContactData.GetAll();
+            List<ContactData> contacts = app.Contact.GetContactList();
             //ContactData contact = ContactData.GetAll().Except(oldList).First();
 
-            foreach(ContactData contact in contacts)
-            {
-                Console.Out.WriteLine(contact);
+            int i = 1;
+            Console.Out.WriteLine("Контакты в группе '" + group.Name + "':\n");
 
+            foreach (ContactData contact in oldList)
+            {
+                Console.Out.WriteLine(i + ")" + contact.AllNames + "\nИД "+ contact.Id);
+                i++;
             }
 
-            //foreach (ContactData contact in contacts)
-            //{
-            //    Console.Out.WriteLine(contact.LastName + " " +contact.FirstName);
-            //}
+            i = 1;
+            Console.Out.WriteLine("\n\nВсе контакты из приложения:\n");
+
+            foreach (ContactData contact in contacts)
+            {
+                Console.Out.WriteLine(i + ")" + contact.AllNames + "\nИД " + contact.Id);
+                i++;
+            }
+
         }
 
     }

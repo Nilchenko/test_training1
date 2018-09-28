@@ -22,6 +22,7 @@ namespace WebAddressbookTests
             if (groups.Count == 0)
             {
                 app.Groups.Create(defaultGroupData);
+                groups = GroupData.GetAll();
             }
 
             //Создание контакта, если контактов нет
@@ -29,16 +30,18 @@ namespace WebAddressbookTests
             if(contacts.Count == 0)
             {
                 app.Contact.AddContact(defaultContactData);
-                contacts.Add(defaultContactData);
+                contacts = ContactData.GetAll();
+
             }
 
-            GroupData group = GroupData.GetAll()[0];
+            GroupData group = groups[0];
             List<ContactData> oldList = group.GetContacts(); //список контактов, состоящих в группе
 
             //проверка на наличие контакта, не состоящего в группе и создание, если такого нет
             if (oldList.Count == contacts.Count)
             {
                 app.Contact.AddContact(defaultContactData);
+                contacts = ContactData.GetAll();
             }
 
             //ContactData contact = ContactData.GetAll().Except(oldList).First();
